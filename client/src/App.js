@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import TabContainer from './components/TabContainer';
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import withRoot from './withRoot';
 import Manage from "./components/Manage";
 import Lookup from "./components/Lookup";
@@ -50,53 +50,59 @@ const styles = theme => ({
   },
 });
 
+const EMPTY_ADDRESS = '0x0000000000000000000000000000000000000000';
+
 class App extends Component {
+
   state = {
     web3: null,
     accounts: null,
     contract: null,
-    currentTab: 0
+    currentTab: 0,
+    existingHealthId: null
   };
 
   componentDidMount = async () => {
-    // try {
-    //   // Get network provider and web3 instance.
-    //   const web3 = await getWeb3();
-    //
-    //   // Use web3 to get the user's accounts.
-    //   const accounts = await web3.eth.getAccounts();
-    //
-    //   // Get the contract instance.
-    //   const networkId = await web3.eth.net.getId();
-    //   const deployedNetwork = HealthIdContract.networks[networkId];
-    //   const instance = new web3.eth.Contract(
-    //       HealthIdContract.abi,
-    //     deployedNetwork && deployedNetwork.address,
-    //   );
-    //
-    //   // Set web3, accounts, and contract to the state, and then proceed with an
-    //   // example of interacting with the contract's methods.
-    //   this.setState({ web3, accounts, contract: instance }, this.runExample);
-    // } catch (error) {
-    //   // Catch any errors for any of the above operations.
-    //   alert(
-    //     `Failed to load web3, accounts, or contract. Check console for details.`,
-    //   );
-    //   console.error(error);
-    // }
+    try {
+      // Get network provider and web3 instance.
+      const web3 = await getWeb3();
+
+      // Use web3 to get the user's accounts.
+      const accounts = await web3.eth.getAccounts();
+
+      // Get the contract instance.
+      const networkId = await web3.eth.net.getId();
+      const deployedNetwork = HealthIdContract.networks[networkId];
+      const instance = new web3.eth.Contract(
+          HealthIdContract.abi,
+          deployedNetwork && deployedNetwork.address,
+      );
+
+      // Set web3, accounts, and contract to the state, and then proceed with an
+      // example of interacting with the contract's methods.
+      this.setState({web3, accounts, contract: instance}, this.runApp);
+    } catch (error) {
+      // Catch any errors for any of the above operations.
+      alert(
+          `Failed to load web3, accounts, or contract. Check console for details.`,
+      );
+      console.error(error);
+    }
   };
 
-  runExample = async () => {
+  runApp = async () => {
+    await this.updateExistingHealthId()
+  };
+
+  updateExistingHealthId = async () => {
     const {accounts, contract} = this.state;
 
     // Stores a given value, 5 by default.
-    await contract.methods.set(10).send({from: accounts[0]});
+    const existingHealthId = await contract.methods.accounts(accounts[0]).call({from: accounts[0]});
 
-    // Get the value from the contract to prove it worked.
-    const response = await contract.methods.get().call();
-
-    // Update state with the result.
-    this.setState({storageValue: response});
+    if (existingHealthId.owner !== EMPTY_ADDRESS) {
+      this.setState({existingHealthId: existingHealthId});
+    }
   };
 
   handleTabChange = (event, value) => {
@@ -105,6 +111,7 @@ class App extends Component {
 
   render() {
     const {classes, theme} = this.props;
+    const {accounts, contract, existingHealthId} = this.state;
 
 
     // if (!this.state.web3) {
@@ -130,12 +137,23 @@ class App extends Component {
                     textColor="primary"
                     variant="fullWidth"
                 >
-                  <Tab label="Manage your HealthID" />
-                  <Tab label="Lookup a HealthID" />
+                  <Tab label="Manage your HealthID"/>
+                  <Tab label="Lookup a HealthID"/>
                 </Tabs>
               </AppBar>
-              {this.state.currentTab === 0 && <TabContainer dir={theme.direction}><Manage classes={classes}/></TabContainer> }
-              {this.state.currentTab === 1 && <TabContainer dir={theme.direction}><Lookup classes={classes}/></TabContainer> }
+              <br/>
+              <Typography align={"center"} variant="caption" color="inherit" noWrap>
+                YOU ARE
+              </Typography>
+              <Typography align={"center"} variant="body1" color="inherit" noWrap>
+                {accounts && accounts[0]}
+              </Typography>
+              {this.state.currentTab === 0 &&
+              <TabContainer dir={theme.direction}><Manage classes={classes} existingHealthId={existingHealthId}
+                                                          contract={contract} accounts={accounts}
+                                                          updateExistinghealthid={this.updateExistingHealthId}/></TabContainer>}
+              {this.state.currentTab === 1 &&
+              <TabContainer dir={theme.direction}><Lookup classes={classes} contract={contract} accounts={accounts}/></TabContainer>}
             </Paper>
           </main>
         </div>
@@ -148,4 +166,4 @@ App.propTypes = {
   theme: PropTypes.object.isRequired
 };
 
-export default withRoot(withStyles(styles, { withTheme: true })(App));
+export default withRoot(withStyles(styles, {withTheme: true})(App));

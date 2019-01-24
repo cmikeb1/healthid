@@ -42,14 +42,14 @@ class InputForm extends Component {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={"Aplus"}>A+</MenuItem>
-              <MenuItem value={"Oplus"}>O+</MenuItem>
-              <MenuItem value={"Bplus"}>B+</MenuItem>
-              <MenuItem value={"ABplus"}>AB+</MenuItem>
-              <MenuItem value={"Aneg"}>A-</MenuItem>
-              <MenuItem value={"Oneg"}>O-</MenuItem>
-              <MenuItem value={"Bneg"}>B-</MenuItem>
-              <MenuItem value={"ABneg"}>AB-</MenuItem>
+              <MenuItem value={"0"}>A+</MenuItem>
+              <MenuItem value={"1"}>O+</MenuItem>
+              <MenuItem value={"2"}>B+</MenuItem>
+              <MenuItem value={"3"}>AB+</MenuItem>
+              <MenuItem value={"4"}>A-</MenuItem>
+              <MenuItem value={"5"}>O-</MenuItem>
+              <MenuItem value={"6"}>B-</MenuItem>
+              <MenuItem value={"7"}>AB-</MenuItem>
             </Select>
           </FormControl>
           <br/>
