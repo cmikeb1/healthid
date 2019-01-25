@@ -6,7 +6,7 @@ contract HealthId {
 
     using LibraryDemo for uint;
 
-    bool private stopped = false;
+    bool public stopped = false;
     address private admin;
 
     mapping(address => Account) public accounts;
