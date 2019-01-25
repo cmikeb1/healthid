@@ -137,7 +137,7 @@ class Manage extends Component {
   };
 
   render() {
-    const {classes, existingHealthId, contract, accounts} = this.props;
+    const {classes, existingHealthId} = this.props;
 
     return (
         <React.Fragment>

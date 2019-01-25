@@ -100,7 +100,7 @@ class App extends Component {
     // Stores a given value, 5 by default.
     const existingHealthId = await contract.methods.accounts(accounts[0]).call({from: accounts[0]});
 
-    if (existingHealthId.owner !== EMPTY_ADDRESS) {
+    if (existingHealthId && existingHealthId.owner !== EMPTY_ADDRESS) {
       this.setState({existingHealthId: existingHealthId});
     }
   };

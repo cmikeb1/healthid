@@ -1,0 +1,1 @@
+A document called `avoiding_common_attacks.md` explaining what measures you took to ensure contracts are not susceptible to common attacks.
