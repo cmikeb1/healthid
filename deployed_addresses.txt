@@ -1,1 +1,154 @@
-Deploy application onto one of the test networks.  Include a document called `deployed_addresses.txt` that describes where your contracts live (which testate and address).
+The HealthId.sol contract, along with LibraryDemo.sol and Migrations.sol, have been deployed to the rinkeby network.
+
+
+       Artifact  Rinkeby Address
+    -----------  ------------------------------------------
+       HealthId: 0xada7878314bb104Ead26aDeE98125968b771Ad04
+     Migrations: 0xfFFFf66Bd768D4A93EcE58Ca44C8196c03Ec7ce2
+    LibraryDemo: 0xAD7b5AE8142dF30ba2Dbe03cCebde2B2f673f08e
+
+
+
+Full output from deploy to rinkeby, using Infura
+------------------------------------------------
+
+$ truffle migrate --network rinkeby-infura
+
+⚠️  Important ⚠️
+If you're using an HDWalletProvider, it must be Web3 1.0 enabled or your migration will hang.
+
+
+Migrations dry-run (simulation)
+===============================
+> Network name:    'rinkeby-infura-fork'
+> Network id:      4
+> Block gas limit: 7009018
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > account:             0xC7DE868EEC488962945C5EE904f5862Fd764fe35
+   > balance:             2.873395563
+   > gas used:            269908
+   > gas price:           2 gwei
+   > value sent:          0 ETH
+   > total cost:          0.000539816 ETH
+
+   -------------------------------------
+   > Total cost:         0.000539816 ETH
+
+
+2_deploy_contracts.js
+=====================
+
+   Deploying 'LibraryDemo'
+   -----------------------
+   > account:             0xC7DE868EEC488962945C5EE904f5862Fd764fe35
+   > balance:             2.873112011
+   > gas used:            114742
+   > gas price:           2 gwei
+   > value sent:          0 ETH
+   > total cost:          0.000229484 ETH
+
+
+   Linking
+   -------
+   * Contract: HealthId <--> Library: LibraryDemo
+
+   Deploying 'HealthId'
+   --------------------
+   > account:             0xC7DE868EEC488962945C5EE904f5862Fd764fe35
+   > balance:             2.871263411
+   > gas used:            924300
+   > gas price:           2 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0018486 ETH
+
+   -------------------------------------
+   > Total cost:         0.002078084 ETH
+
+
+Summary
+=======
+> Total deployments:   3
+> Final cost:          0.0026179 ETH
+
+⚠️  Important ⚠️
+If you're using an HDWalletProvider, it must be Web3 1.0 enabled or your migration will hang.
+
+
+Starting migrations...
+======================
+> Network name:    'rinkeby-infura'
+> Network id:      4
+> Block gas limit: 7009018
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > transaction hash:    0x620adc043fbdaa15e272b5cc1fda22cd1e677d5658461d95017b5a98109d6265
+   > Blocks: 0            Seconds: 12
+   > contract address:    0xfFFFf66Bd768D4A93EcE58Ca44C8196c03Ec7ce2
+   > account:             0xC7DE868EEC488962945C5EE904f5862Fd764fe35
+   > balance:             2.868237219
+   > gas used:            284908
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00569816 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.00569816 ETH
+
+
+2_deploy_contracts.js
+=====================
+
+   Deploying 'LibraryDemo'
+   -----------------------
+   > transaction hash:    0x6c4e76403f4eaed44b6619eaf251815f30a17397ea5622da851af36d6244e43d
+   > Blocks: 0            Seconds: 12
+   > contract address:    0xAD7b5AE8142dF30ba2Dbe03cCebde2B2f673f08e
+   > account:             0xC7DE868EEC488962945C5EE904f5862Fd764fe35
+   > balance:             2.865101699
+   > gas used:            114742
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00229484 ETH
+
+
+   Linking
+   -------
+   * Contract: HealthId <--> Library: LibraryDemo (at address: 0xAD7b5AE8142dF30ba2Dbe03cCebde2B2f673f08e)
+
+   Deploying 'HealthId'
+   --------------------
+   > transaction hash:    0x3c46ea54e955a984576cf74de28d545b17adee8fc62cc4c00da9773f82e8fdc2
+   > Blocks: 0            Seconds: 12
+   > contract address:    0xada7878314bb104Ead26aDeE98125968b771Ad04
+   > account:             0xC7DE868EEC488962945C5EE904f5862Fd764fe35
+   > balance:             2.846111699
+   > gas used:            949500
+   > gas price:           20 gwei
+   > value sent:          0 ETH
+   > total cost:          0.01899 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.02128484 ETH
+
+
+Summary
+=======
+> Total deployments:   3
+> Final cost:          0.026983 ETH
