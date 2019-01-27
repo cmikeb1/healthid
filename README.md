@@ -37,6 +37,7 @@ Such a system could be coded into a smart contract.
 
 To run HealthID, the following are required:
 
+* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 * [NodeJS](https://nodejs.org/en/)
 * [Truffle Suite](https://truffleframework.com/), globally installed
 * [Ganache](https://truffleframework.com/ganache) (optional)
@@ -237,9 +238,3 @@ more dependents.
 
 ### "Data Validators"
 Validate snapshot data conforms to some standard (FHIR, HL7 v2, etc.)
-
-
-
-
-
-
